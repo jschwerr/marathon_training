@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+import marathon_training.views as views
 
 urlpatterns = [
     url(r'^training_tracker/', include('training_tracker.urls', namespace="training_tracker")),
+    url(r'^$', views.root),
     url(r'^admin/', admin.site.urls),
 ]
