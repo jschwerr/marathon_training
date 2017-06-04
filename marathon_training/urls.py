@@ -17,5 +17,6 @@ from django.conf.urls import url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^training_tracker/', include('training_tracker.urls', namespace="training_tracker")),
     url(r'^admin/', admin.site.urls),
 ]

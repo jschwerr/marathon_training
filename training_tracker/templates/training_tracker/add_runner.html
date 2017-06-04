@@ -1,0 +1,28 @@
+<h1>Add a runnner</h1>
+<a href="/training_tracker">Home</a><br/>
+
+<form action="{% url 'training_tracker:post_runner' %}" method="post">
+    {% csrf_token %}
+    <label for="runner-name">Name: </label>
+    <input type="text" name="runner-name" id="runner-name" required>
+    <br/>
+
+    <label for="runner-age">Age: </label>
+    <input type="text" name="runner-age" id="runner-age" required>
+    <br/>
+
+    <h2>Marathon Goal: </h2>
+    <label for="hours">Hours: </label>
+    <input type="text" name="hours" id="hours" required>
+    <br/>
+
+    <label for="runner-age">Minutes: </label>
+    <input type="text" name="minutes" id="minutes" required>
+    <br/>
+
+    <label for="seconds">Seconds: </label>
+    <input type="text" name="seconds" id="seconds" required>
+    <br/>
+
+    <input type="submit" value="Add Runner">
+</form>

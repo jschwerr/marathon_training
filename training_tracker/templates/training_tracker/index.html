@@ -1,0 +1,14 @@
+<h1>Welcome to the training tracker app</h1>
+<a href="add_run">Add a run</a>
+<a href="add_runner">Add a runner</a>
+<a href="view_runs">View runs</a>
+{% if runners %}
+    <h3>Current runners:</h3>
+    <ul>
+        {% for runner in runners %}
+            <li>{{runner.name}}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>No active runners</h3>
+{% endif %}

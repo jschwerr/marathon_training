@@ -1,0 +1,21 @@
+<h1>Add miles</h1>
+<a href="/training_tracker">Home</a><br/>
+
+<form action="{% url 'training_tracker:post_miles' run.id %}" method="post">
+    {% csrf_token %}
+    {% for mile in miles %}
+        <h1>Mile {{ forloop.counter }}: </h1>
+
+        <label for="minutes{{ forloop.counter }}">Minutes: </label>
+        <input type="text" name="minutes{{ forloop.counter }}" id="minutes{{ forloop.counter }}" required>
+        <br/>
+
+        <label for="seconds{{ forloop.counter }}">Seconds: </label>
+        <input type="text" name="seconds{{ forloop.counter }}" id="seconds{{ forloop.counter }}" required>
+        <br/>
+    {% endfor %}
+    <br/>
+    <input type="submit" value="Add Miles">
+</form>
+
+<a href="/training_tracker">Skip</a>
