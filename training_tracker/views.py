@@ -1,7 +1,12 @@
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
+
+from .charts import LineGraph
 from .models import Runner, Run, Mile
+from .run_history import run_history
+
+
 # Create your views here.
 
 def index(request):
@@ -32,7 +37,7 @@ def post_run(request):
     post_seconds = request.POST['seconds']
 
     run = Run()
-    run.runner = Runner.objects.get(pk = post_pk)
+    run.runner_id = Runner.objects.get(pk=post_pk)
     run.date = post_date
     run.run_number = Run.objects.filter(pk = post_pk).count() + 1
     run.tot_distance = post_distance
@@ -74,7 +79,7 @@ def post_miles(request, run_id):
 
         mile = Mile()
 
-        mile.run = run
+        mile.run_id = run
         mile.mile_number = i
         mile.minutes = minutes
         mile.seconds = seconds
@@ -88,26 +93,22 @@ def view_runs(request):
     run_histories = []
 
     for runner in runners:
-        run_history = []
-        runs = Run.objects.filter(runner = runner.pk).order_by('date')
-
-        for run in runs:
-            miles = Mile.objects.filter(run = run.pk).order_by('mile_number')
-            mile_history = []
-
-            for mile in miles:
-                mile_history.append({"mile":mile})
-
-            run_history.append({"run":mile_history})
-
-        run_histories.append(
-            {
-                "name":runner.name,
-                "run_history":run_history
-            })
+        history = run_history(runner.pk).get_data()
+        run_histories.append(history)
 
     context = {
         "run_histories" : run_histories
     }
 
     return render(request, 'training_tracker/view_runs.html', context)
+
+def line_graph(request):
+    histories = []
+    for runner in Runner.objects.all():
+        history = runner.get_run_history()
+        histories.append(history)
+
+    graph = LineGraph()
+    context = graph.get_context_data(run_history=histories[0])
+
+    return render(request, 'training_tracker/line_chart.html', context)

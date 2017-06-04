@@ -1,6 +1,7 @@
 from django.db import models
-import django.utils.timezone as tz
-import datetime
+
+from training_tracker import run_history
+
 
 # Create your models here.
 class Runner(models.Model):
@@ -13,8 +14,12 @@ class Runner(models.Model):
     def __str__(self):
         return self.name
 
+    def get_run_history(self):
+        data = run_history.run_history(self.pk).get_data()
+        return data
+
 class Run(models.Model):
-    runner = models.ForeignKey(Runner, on_delete=models.CASCADE)
+    runner_id = models.ForeignKey(Runner, on_delete=models.CASCADE)
     run_number = models.IntegerField()
     tot_distance = models.IntegerField(default=0)
     hours = models.IntegerField(default=0)
@@ -28,7 +33,7 @@ class Run(models.Model):
                ", Time: " + "{0}:{1}:{2}".format(self.hours, self.minutes, self.seconds)
 
 class Mile(models.Model):
-    run = models.ForeignKey(Run, on_delete=models.CASCADE)
+    run_id = models.ForeignKey(Run, on_delete=models.CASCADE)
     mile_number = models.IntegerField()
     minutes = models.IntegerField(default=0)
     seconds = models.IntegerField(default=0)

@@ -5,26 +5,26 @@
 <h1>View Runs</h1>
 <select>
     {% for run_history in run_histories %}
-        <option value="runner.name">{{ run_history.name }}</option>
+        <option value="runner.name">{{ run_history.runner }}</option>
     {% endfor %}
 </select>
     
-{% if run_history %}
-
+{% if run_histories %}
     {% for run_history in run_histories %}
-        <div class="hide">
-            <h1>{{ run_history.name }}</h1>
-            {% if run_history.run_history %}
+        <div class="">
+            {{ run_history }}
+            <h1>{{ run_history.runner }}</h1>
+            {% if run_history.runs %}
             <ul>
-                {% for run in run_history.run_history %}
-                    <li>Run {{ forloop.counter }}</li>
+                {% for run in run_history.runs %}
+                    <li>{{ run.date }} - {{ run.total_distance }} miles,
+                        {% if run.hours %}{{ run.hours }}:{% endif %}{{ run.minutes|stringformat:"02d" }}:{{ run.seconds|stringformat:"02d" }}</li>
                         <ul>
-                            {% for mile in run.run %}
-                                {% if not mile.mile %}
+                            {% for mile in run.miles %}
+                                {% if not mile %}
                                     <li>Record miles please</li>
                                 {% endif %}
-                                <li>Mile {{ forloop.counter }}:
-                                    {{ mile.mile.hours }}:{{ mile.mile.minutes }}:{{ mile.mile.seconds }}</li>
+                                <li>Mile {{ forloop.counter }}: {{ mile.minutes }}:{{ mile.seconds|stringformat:"02d" }}</li>
                             {% endfor %}
                         </ul>
                 {% endfor %}
