@@ -1,27 +1,45 @@
+{% extends "training_tracker/__base.html" %}
+
+{% block content %}
+
 <h1>View Runs</h1>
-<a href="/training_tracker">Home</a><br/><br/>
 <select>
     {% for run_history in run_histories %}
         <option value="runner.name">{{ run_history.name }}</option>
     {% endfor %}
 </select>
 
-{% for run_history in run_histories %}
-    <div class="hide">
-        <h1>{{ run_history.name }}</h1>
-        <ul>
-            {% for run in run_history.run_history %}
-                <li>Run {{ forloop.counter }}</li>
-                    <ul>
-                        {% for mile in run.run %}
-                            {% if not mile.mile %}
-                                <li>Record miles please</li>
-                            {% endif %}
-                            <li>Mile {{ forloop.counter }}:
-                                {{ mile.mile.hours }}:{{ mile.mile.minutes }}:{{ mile.mile.seconds }}</li>
-                        {% endfor %}
-                    </ul>
-            {% endfor %}
-        </ul>
-    </div>
-{% endfor %}
+{% if run_history %}
+
+    {% for run_history in run_histories %}
+        <div class="hide">
+            <h1>{{ run_history.name }}</h1>
+            {% if run_history.run_history %}
+            <ul>
+                {% for run in run_history.run_history %}
+                    <li>Run {{ forloop.counter }}</li>
+                        <ul>
+                            {% for mile in run.run %}
+                                {% if not mile.mile %}
+                                    <li>Record miles please</li>
+                                {% endif %}
+                                <li>Mile {{ forloop.counter }}:
+                                    {{ mile.mile.hours }}:{{ mile.mile.minutes }}:{{ mile.mile.seconds }}</li>
+                            {% endfor %}
+                        </ul>
+                {% endfor %}
+            </ul>
+
+            {% else %}
+            <p>No runs to report.</p>
+
+            {% endif %}
+        </div>
+    {% endfor %}
+
+{% else %}
+<p>No runs to report.</p>
+
+{% endif %}
+
+{% endblock %}

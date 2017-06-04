@@ -1,5 +1,8 @@
+{% extends "training_tracker/__base.html" %}
+
+{% block content %}
+
 <h1>Add miles</h1>
-<a href="/training_tracker">Home</a><br/>
 
 <form action="{% url 'training_tracker:post_miles' run.id %}" method="post">
     {% csrf_token %}
@@ -19,3 +22,5 @@
 </form>
 
 <a href="/training_tracker">Skip</a>
+
+{% endblock %}

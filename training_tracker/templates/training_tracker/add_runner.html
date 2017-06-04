@@ -1,5 +1,8 @@
+{% extends "training_tracker/__base.html" %}
+
+{% block content %}
+
 <h1>Add a runnner</h1>
-<a href="/training_tracker">Home</a><br/>
 
 <form action="{% url 'training_tracker:post_runner' %}" method="post">
     {% csrf_token %}
@@ -26,3 +29,5 @@
 
     <input type="submit" value="Add Runner">
 </form>
+
+{% endblock %}
