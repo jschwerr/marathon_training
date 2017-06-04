@@ -9,6 +9,7 @@
 {% for run_history in run_histories %}
     <div class="hide">
         <h1>{{ run_history.name }}</h1>
+        {% if run_history.run_history %}
         <ul>
             {% for run in run_history.run_history %}
                 <li>Run {{ forloop.counter }}</li>
@@ -23,5 +24,9 @@
                     </ul>
             {% endfor %}
         </ul>
+        {% else %}
+        <p>No runs to report.</p>
+        {% endif %}
+
     </div>
 {% endfor %}

@@ -1,53 +1,23 @@
-# Heroku Django Starter Template
+# Marathon Training Tracker
 
-An utterly fantastic project starter template for Django 1.11.
+Track your progress to your marathon goals
 
 ## Features
 
-- Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
-- Enhancements to Django's static file serving functionality via WhiteNoise.
-- Latest Python 3.6 runtime environment. 
+* Add: runners, runs, goals
+* Edit: runners, runs, goals
+* View: runners, runs, goals
 
 ## How to Use
 
 To use this project, follow these steps:
 
-1. Create your working environment.
-2. Install Django (`$ pip install django`)
-3. Create a new project using this template
+1. Create your working virtual environment.
+2. Install the requirements with pip install -r requirements.txt
+3. Run the app locally
 
-## Creating Your Project
+## Useful Links
 
-Using this template to create a new Django app is easy::
-
-    $ django-admin.py startproject --template=https://github.com/heroku/heroku-django-template/archive/master.zip --name=Procfile helloworld
-
-(If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
-
-You can replace ``helloworld`` with your desired project name.
-
-## Deployment to Heroku
-
-    $ git init
-    $ git add -A
-    $ git commit -m "Initial commit"
-
-    $ heroku create
-    $ git push heroku master
-
-    $ heroku run python manage.py migrate
-
-See also, a [ready-made application](https://github.com/heroku/python-getting-started), ready to deploy.
-
-## Using Python 2.7?
-
-Just update `runtime.txt` to `python-2.7.13` (no trailing spaces or newlines!).
-
-
-## License: MIT
-
-## Further Reading
-
-- [Gunicorn](https://warehouse.python.org/project/gunicorn/)
-- [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
-- [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
+* [Using Django layout templates](https://oncampus.oberlin.edu/webteam/2012/09/architecture-django-templates)
+* [Bootstrap download](https://getbootstrap.com/getting-started/)
+* [JQuery download](http://jquery.com/download/)
