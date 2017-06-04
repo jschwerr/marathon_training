@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^post_runner/$', views.post_runner, name="post_runner"),
     url(r'^post_miles/run/(?P<run_id>[0-9]+)$', views.post_miles, name="post_miles"),
     url(r'^view_runs/$', views.view_runs, name="view_runs"),
+    url(r'^charts/bar/$', views.barchart, name="bar_chart"),
 ]
