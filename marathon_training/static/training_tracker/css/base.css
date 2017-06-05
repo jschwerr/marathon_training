@@ -1,0 +1,39 @@
+.container {
+    position:relative;
+    width:100%;
+    overflow: hidden;
+}
+
+li .active {
+    background-color:#DCDCDC;
+}
+
+.run-history-info {
+    overflow-y: hidden;
+    height:300px;
+    clear:both;
+    padding-top:2.5%;
+}
+
+.run-history-list h1 {
+    font-size:24px;
+}
+
+.run-history-list {
+    height:100%;
+    overflow-y: auto;
+}
+
+.run-history-list::-webkit-scrollbar {
+    height:300px;
+}
+
+.run-history-list::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius:10px;
+}
+
+.run-history-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.05);
+    border-radius:10px;
+}

@@ -1,4 +1,4 @@
-from .apps import TrainingTrackerConfig
+from training_tracker.apps import TrainingTrackerConfig
 from django.apps import apps
 
 class run_history:
@@ -11,8 +11,13 @@ class run_history:
         self.runner = Runner.objects.get(pk=runner_id)
         self.runs = Run.objects.filter(runner_id=runner_id).order_by('date')
 
+
         self.data['runner'] = self.runner.name
+        self.data['runner_id'] = self.runner.pk
         self.data['runs'] = []
+
+        if not self.runs: return
+
         for run in self.runs:
             rtemp = {}
             rtemp['date'] = run.date

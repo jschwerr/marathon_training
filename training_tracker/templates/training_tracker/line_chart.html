@@ -1,8 +1,8 @@
-<div>
-    Hello
-</div>
 {% if graph %}
-<div style="width:600;height500">
+
+<div class="run-history-chart col-md-9 col-lg-9">
     {{ graph|safe }}
 </div>
+{% else %}
+<p>{{ no_data }}</p>
 {% endif %}

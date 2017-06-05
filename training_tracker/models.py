@@ -1,6 +1,6 @@
 from django.db import models
 
-from training_tracker import run_history
+from training_tracker.custom_classes import run_history
 
 
 # Create your models here.

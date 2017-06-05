@@ -1,10 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from training_tracker.custom_classes.charts import LineGraph
 
-from .charts import LineGraph
+from training_tracker.custom_classes.run_history import run_history
 from .models import Runner, Run, Mile
-from .run_history import run_history
 
 
 # Create your views here.
@@ -102,13 +102,11 @@ def view_runs(request):
 
     return render(request, 'training_tracker/view_runs.html', context)
 
-def line_graph(request):
-    histories = []
-    for runner in Runner.objects.all():
-        history = runner.get_run_history()
-        histories.append(history)
+def line_graph(request, runner_id):
+
+    history = Runner.objects.get(pk=runner_id).get_run_history()
 
     graph = LineGraph()
-    context = graph.get_context_data(run_history=histories[0])
+    context = graph.get_context_data(run_history=history)
 
     return render(request, 'training_tracker/line_chart.html', context)

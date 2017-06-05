@@ -8,6 +8,10 @@ class LineGraph(TemplateView):
     #     self.template_name = 'training_tracker/line_chart'
 
     def get_context_data(self, run_history, **kwargs):
+        if not run_history:
+            context = {"no_data" : "no data"}
+            return context
+
         context = super(LineGraph, self).get_context_data(**kwargs)
 
         run_dates = []
@@ -44,7 +48,7 @@ class LineGraph(TemplateView):
                             mode="lines", name='1st Trace')
 
         data = gobs.Data([trace1])
-        layout = gobs.Layout(title="Distance Ran", xaxis={'title': 'Date'}, yaxis={'title': 'Distance'})
+        layout = gobs.Layout(title="Distance Ran", titlefont=dict(size=24), xaxis={'title': 'Date'}, yaxis={'title': 'Distance'})
         figure = gobs.Figure(data=data, layout=layout)
         div = opy.plot(figure, auto_open=False, output_type='div')
 
