@@ -6,6 +6,7 @@
 
 <h1>View Runs</h1>
 <select class="runner-select">
+    <!-- select an individual runner or display run history for all runners -->
     <option id="runner-select-all" value="all">All Runners</option>
     {% for run_history in run_histories %}
         <option id="runner-select-{{ run_history.runner_id }}" value="{{ run_history.runner_id }}">{{ run_history.runner }}</option>
@@ -13,9 +14,12 @@
 </select>
     
 {% if run_histories %}
+    <!-- for each runner who has runs recorded -->
     {% for run_history in run_histories %}
         <div class="">
+            <!-- display a list of runs and a chart tracking the runners progress-->
             <div class="run-history-info row" id="run-history-info-{{ run_history.runner_id }}">
+                <!-- display list -->
                 <div class="run-history-list col-md-3 col-lg-3">
                     <h1>{{ run_history.runner }}</h1>
                     {% if run_history.runs %}
@@ -34,10 +38,16 @@
                         {% endfor %}
                     </ul>
                 </div>
-                {% run_history_chart_context 1%}
+
+                <!-- display chart -->
+                <div class="run-history-chart col-md-9 col-lg-9">
+                    {% run_history_chart_context 1%}
+                </div>
             </div>
 
             {% else %}
+
+            <!-- if no runs for a runner -->
             <p>No runs to report</p>
 
             {% endif %}
@@ -45,6 +55,7 @@
     {% endfor %}
 
 {% else %}
+<!-- if no runners -->
 <p>No runs to report.</p>
 
 {% endif %}

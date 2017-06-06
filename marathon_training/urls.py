@@ -18,8 +18,11 @@ from django.contrib import admin
 import marathon_training.views as views
 
 urlpatterns = [
+    # include training tracker app
     url(r'^training_tracker/', include('training_tracker.urls', namespace="training_tracker")),
+    # root directory redirects to training tracker
     url(r'^$', views.root),
+    # admin site
     url(r'^admin/', admin.site.urls),
 
 ]

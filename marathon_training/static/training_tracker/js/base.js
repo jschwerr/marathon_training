@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    /* view-runs.html when user selects a different runner
+       only show data about that runner */
     $(".runner-select").change(function() {
         var selectVal = $(".runner-select").val();
         var selectDiv = "run-history-info-";

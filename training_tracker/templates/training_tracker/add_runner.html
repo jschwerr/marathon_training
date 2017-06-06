@@ -4,6 +4,7 @@
 
 <h1>Add a runnner</h1>
 
+<!-- form sends post data to post_runner in views.py-->
 <form action="{% url 'training_tracker:post_runner' %}" method="post">
     {% csrf_token %}
     <label for="runner-name">Name: </label>

@@ -4,9 +4,12 @@
 
 <h1>Add a run</h1>
 
+<!-- form sends post data to post_run in views.py-->
 <form action="{% url 'training_tracker:post_run' %}" method="post">
     {% csrf_token %}
     <label for="runner">Name: </label>
+
+    <!-- select name from all runners -->
     <select name="runner" id="runner">
         {% for runner in runners %}
         <option name="{{ runner.name }}" value="{{ runner.pk }}">{{ runner.name }}</option>

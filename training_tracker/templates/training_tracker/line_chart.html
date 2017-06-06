@@ -1,8 +1,7 @@
 {% if graph %}
 
-<div class="run-history-chart col-md-9 col-lg-9">
+<!-- show graph in safe mode if there is a graph -->
     {{ graph|safe }}
-</div>
 {% else %}
 <p>{{ no_data }}</p>
 {% endif %}

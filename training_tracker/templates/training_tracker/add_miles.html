@@ -4,8 +4,10 @@
 
 <h1>Add miles</h1>
 
+<!-- form sends post data along with run id to post_miles in views.py-->
 <form action="{% url 'training_tracker:post_miles' run.id %}" method="post">
     {% csrf_token %}
+    <!-- add inputs for each mile ran for this run_id -->
     {% for mile in miles %}
         <h1>Mile {{ forloop.counter }}: </h1>
 
@@ -21,6 +23,7 @@
     <input type="submit" value="Add Miles">
 </form>
 
+<!-- allow user to skip entering mile info -->
 <a href="/training_tracker">Skip</a>
 
 {% endblock %}

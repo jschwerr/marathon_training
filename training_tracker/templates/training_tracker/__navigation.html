@@ -16,10 +16,15 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="tt-navbar-collapse-main">
       <ul class="nav navbar-nav">
+        <!-- active links to pages
+             navactive gives the nav an active
+             class if it matches the url of the request-->
+
           <li><a class="{% navactive request 'training_tracker:add_run' %}" href="{% url 'training_tracker:add_run' %}">Add a run</a></li>
           <li><a class="{% navactive request 'training_tracker:add_runner' %}" href="{% url 'training_tracker:add_runner' %}">Add a runner</a></li>
           <li><a class="{% navactive request 'training_tracker:view_runs' %}" href="{% url 'training_tracker:view_runs' %}">View runs</a></li>
 
+        <!-- template for a dropdown list-->
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -34,6 +39,7 @@
         </li>
       </ul>
 
+      <!-- template for a navbar pulled right-->
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Link</a></li>
         <li class="dropdown">

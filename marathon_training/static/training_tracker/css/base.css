@@ -1,13 +1,16 @@
+/* page content */
 .container {
     position:relative;
     width:100%;
     overflow: hidden;
 }
 
+/* active nav link */
 li .active {
     background-color:#DCDCDC;
 }
 
+/* view-runs.html */
 .run-history-info {
     overflow-y: hidden;
     height:300px;

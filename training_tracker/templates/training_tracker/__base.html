@@ -1,5 +1,8 @@
 {% load staticfiles i18n %}
 
+<!-- base templates loads static files and base style sheets and script files
+     including bootstraps and jquery-->
+
 <html>
     <head>
         {% block meta_tags %}{% endblock %}
@@ -18,9 +21,13 @@
         {% block extra_head %}{% endblock %}
     </head>
     <body>
+
+        <!-- use navigation.html template as navbar-->
         <header class="navbar">
             {% include "training_tracker/__navigation.html" %}
         </header>
+
+        <!-- page templates will fill in the content of the page-->
         <div id="main" role="main">
             <div class="container">
                 {% block content %}
