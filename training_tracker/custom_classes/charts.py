@@ -66,7 +66,7 @@ class LineGraph(TemplateView):
                             mode="lines", name='1st Trace')
 
         data = gobs.Data([trace1])
-        layout = gobs.Layout(title="Distance Ran", titlefont=dict(size=24), xaxis={'title': 'Date'}, yaxis={'title': 'Distance'})
+        layout = gobs.Layout(title="Distance Ran", titlefont=dict(size="24px"),xaxis={'title': 'Date'}, yaxis={'title': 'Distance'})
         figure = gobs.Figure(data=data, layout=layout)
         div = opy.plot(figure, auto_open=False, output_type='div')
 

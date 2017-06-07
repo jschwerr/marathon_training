@@ -2,37 +2,51 @@
 
 {% block content %}
 
-<h1>Add a run</h1>
+<div class="row">
+    <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
+        <h1>Add a run</h1>
+        <!-- form sends post data to post_run in views.py-->
+        <form action="{% url 'training_tracker:post_run' %}" method="post">
+            {% csrf_token %}
 
-<!-- form sends post data to post_run in views.py-->
-<form action="{% url 'training_tracker:post_run' %}" method="post">
-    {% csrf_token %}
-    <label for="runner">Name: </label>
+            <div class="form-group">
+                <label for="runner">Name: </label>
+                <!-- select name from all runners -->
+                <select class="form-control" name="runner" id="runner">
+                    {% for runner in runners %}
+                    <option name="{{ runner.name }}" value="{{ runner.pk }}">{{ runner.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-    <!-- select name from all runners -->
-    <select name="runner" id="runner">
-        {% for runner in runners %}
-        <option name="{{ runner.name }}" value="{{ runner.pk }}">{{ runner.name }}</option>
-        {% endfor %}
-    </select>
-    <br/>
+            <div class="form-group">
+                <label for="run-date">Date:</label>
+                <input class="form-control" type="date" name="run-date" id="run-date" required>
+            </div>
 
-    <label for="run-date">Date:</label>
-    <input type="date" name="run-date" id="run-date" required>
+            <div class="form-group">
+                <label for="tot-distance">Distance: </label>
+                <input class="form-control" type="text" name="tot-distance" id="tot-distance" placeholder="Enter miles ran." required>
+            </div>
 
-    <label for="tot-distance">Distance: </label>
-    <input type="text" name="tot-distance" id="tot-distance" placeholder="Enter miles ran." required><br/>
+            <div class="form-group">
+                <label for="hours">Hours: </label>
+                <input class="form-control" type="text" name="hours" id="hours" placeholder="Enter hours." required>
+            </div>
 
-    <label for="hours">Hours: </label>
-    <input type="text" name="hours" id="hours" placeholder="Enter hours." required><br/>
+            <div class="form-group">
+                <label for="minutes">Minutes: </label>
+                <input class="form-control" type="text" name="minutes" id="minutes" placeholder="Enter minutes.">
+            </div>
 
-    <label for="minutes">Minutes: </label>
-    <input type="text" name="minutes" id="minutes" placeholder="Enter minutes."><br/>
+            <div class="form-group">
+                <label for="seconds">Seconds: </label>
+                <input class="form-control" type="text" name="seconds" id="seconds" placeholder="Enter seconds." required>
+            </div>
 
-    <label for="seconds">Seconds: </label>
-    <input type="text" name="seconds" id="seconds" placeholder="Enter seconds." required><br/>
-
-    <input type="submit" value="Add Run">
-</form>
+            <input class="form-control mt-submit" type="submit" value="Add Run">
+        </form>
+    </div>
+</div>
 
 {% endblock %}

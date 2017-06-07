@@ -1,10 +1,14 @@
 {% extends "training_tracker/__base.html" %}
 
-{% load tt_extra_tags %}
+{% load tt_extra_tags staticfiles %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'training_tracker/js/view_runs.js' %}"></script>
+{% endblock %}
 
 {% block content %}
-
-<h1>View Runs</h1>
+<h1>View Runs</h1><br/>
 <select class="runner-select">
     <!-- select an individual runner or display run history for all runners -->
     <option id="runner-select-all" value="all">All Runners</option>
@@ -12,7 +16,7 @@
         <option id="runner-select-{{ run_history.runner_id }}" value="{{ run_history.runner_id }}">{{ run_history.runner }}</option>
     {% endfor %}
 </select>
-    
+
 {% if run_histories %}
     <!-- for each runner who has runs recorded -->
     {% for run_history in run_histories %}
@@ -23,21 +27,29 @@
                 <div class="run-history-list col-md-3 col-lg-3">
                     <h1>{{ run_history.runner }}</h1>
                     {% if run_history.runs %}
-                    <ul>
                         {% for run in run_history.runs %}
-                            <li>{{ run.date }} - {{ run.total_distance }} miles,
-                                {% if run.hours %}{{ run.hours }}:{% endif %}{{ run.minutes|stringformat:"02d" }}:{{ run.seconds|stringformat:"02d" }}</li>
-                                <ul>
-                                    {% for mile in run.miles %}
-                                        {% if not mile %}
-                                            <li>Record miles please</li>
-                                        {% endif %}
-                                        <li>Mile {{ forloop.counter }}: {{ mile.minutes }}:{{ mile.seconds|stringformat:"02d" }}</li>
-                                    {% endfor %}
-                                </ul>
+                            <div class="accordion">
+                                <div class="accordion-section">
+                                        <div class="accordion-section-title collapsed" id="#accordion-{{ run.run_id }}">
+                                            <span class="fa-caret-right"></span>
+                                            {{ run.date }} - {{ run.total_distance }} miles,
+                                            {% if run.hours %}{{ run.hours }}:{% endif %}{{ run.minutes|stringformat:"02d" }}:{{ run.seconds|stringformat:"02d" }}
+                                        </div>
+                                        <div style="display:none;" id="accordion-{{ run.run_id }}" class="accordion-section-content">
+                                                <ul>
+                                                    {% for mile in run.miles %}
+                                                        {% if not mile %}
+                                                            <li>Record miles please</li>
+                                                        {% else %}
+                                                            <li>Mile {{ forloop.counter }}: {{ mile.minutes }}:{{ mile.seconds|stringformat:"02d" }}</li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                        </div>
+                                </div>
+                            </div>
                         {% endfor %}
-                    </ul>
-                </div>
+                    </div>
 
                 <!-- display chart -->
                 <div class="run-history-chart col-md-9 col-lg-9">
