@@ -24,7 +24,7 @@ class Runner(models.Model):
 # run_number is relative to the runner (e.g. run_number = 1 is the first recorded run for this runner)
 # record time and date information for the run
 class Run(models.Model):
-    runner_id = models.ForeignKey(Runner, on_delete=models.CASCADE)
+    runner = models.ForeignKey(Runner, on_delete=models.CASCADE)
     run_number = models.IntegerField()
     tot_distance = models.IntegerField(default=0)
     hours = models.IntegerField(default=0)
@@ -41,7 +41,7 @@ class Run(models.Model):
 # Represents a mile. Run_id associates a mile to the run it was recorded for. Mile number is similar to run_number
 # record minutes and seconds for the mile
 class Mile(models.Model):
-    run_id = models.ForeignKey(Run, on_delete=models.CASCADE)
+    run = models.ForeignKey(Run, on_delete=models.CASCADE)
     mile_number = models.IntegerField()
     minutes = models.IntegerField(default=0)
     seconds = models.IntegerField(default=0)
