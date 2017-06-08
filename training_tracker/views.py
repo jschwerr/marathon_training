@@ -55,7 +55,7 @@ def post_run(request):
 
     # create a new Run instance and assign fields from post to it
     run = Run()
-    run.runner_id = Runner.objects.get(pk=post_pk)
+    run.runner_id = post_pk
     run.date = post_date
     # add 1 to the current amount of runs that the runner has recorded
     run.run_number = Run.objects.filter(pk = post_pk).count() + 1
@@ -116,7 +116,7 @@ def post_miles(request, run_id):
         # create a new Mile instance and and assign fields from post to it
         mile = Mile()
 
-        mile.run_id = run
+        mile.run_id = run_id
         mile.mile_number = i
         mile.minutes = minutes
         mile.seconds = seconds

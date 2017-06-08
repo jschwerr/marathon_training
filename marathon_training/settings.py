@@ -82,7 +82,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'marathon_training',
-        'USER': 'mtrainuser',
+        'USER': 'schwe',
         'PASSWORD': 'ilikehats',
         'HOST': 'localhost',
         'PORT': '',

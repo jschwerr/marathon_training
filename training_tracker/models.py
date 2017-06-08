@@ -49,4 +49,4 @@ class Mile(models.Model):
     # print string for mile
     def __str__(self):
         return "ID: " + str(self.run.pk) + \
-               ", Mile time: " + "{0}:{1}:{2}".format(self.hours, self.minutes, self.seconds)
+               ", Mile time: " + "{1}:{2}".format(self.minutes, self.seconds)
