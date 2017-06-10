@@ -136,7 +136,7 @@ def post_edit_runner(request, runner_id):
 
     Runner.objects.filter(pk=runner_id).update(name=post_name,age=post_age,hours_goal=post_hours,
                                                minutes_goal=post_minutes,seconds_goal=post_seconds)
-    
+
     return HttpResponseRedirect(reverse('training_tracker:index'))
 
 # post miles to the db
