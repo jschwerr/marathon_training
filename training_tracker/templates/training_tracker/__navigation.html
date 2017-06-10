@@ -26,7 +26,6 @@
               <li><a class="{% navactive request 'training_tracker:add_run' %}" href="{% url 'training_tracker:add_run' %}">Add a run</a></li>
               <li><a class="{% navactive request 'training_tracker:add_runner' %}" href="{% url 'training_tracker:add_runner' %}">Add a runner</a></li>
               <li><a href="#">Add a plan</a></li>
-              <li><a href="#">Add a goal</a></li>
             </ul>
           </li>
 
@@ -37,7 +36,7 @@
               <li><a class="{% navactive request 'training_tracker:view_runs' %}" href="{% url 'training_tracker:view_runs' %}">View runs</a></li>
               <li><a href="#">View runners</a></li>
               <li><a href="#">View plans</a></li>
-              <li><a href="#">View goals</a></li>
+              <li><a class="{% navactive request 'training_tracker:view_goals' %}" href="{% url 'training_tracker:view_goals' %}">View goals</a></li>
             </ul>
           </li>
 
@@ -46,7 +45,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Edit <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">Edit a run</a></li>
-              <li><a href="#">Edit a runner</a></li>
+              <li><a class="{% navactive request 'training_tracker:edit_runner' %}" href="{% url 'training_tracker:edit_runner' %}">Edit a runner</a></li>
               <li><a href="#">Edit goals</a></li>
               <li><a href="#">Edit a plan</a></li>
             </ul>

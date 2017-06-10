@@ -1,0 +1,58 @@
+{% extends "training_tracker/__base.html" %}
+
+{% load tt_extra_tags staticfiles %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'training_tracker/js/js-cookie-master/src/js.cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'training_tracker/js/edit_runner.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
+        <h3>Select a runner</h3>
+        <select class="runner-select form-control">
+            <option value="all">Select a runner</option>
+            {% for runner in runners %}
+                <option value="{{ runner.id }}">{{ runner.name }}</option>
+            {% endfor %}
+        </select>
+        <br/>
+
+        <div>
+            <form  id="edit-runner-form" method="post">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label for="edit-runner-name">Name: </label>
+                        <input class="form-control" type="text" name="runner-name" id="edit-runner-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-runner-age">Age: </label>
+                        <input class="form-control" type="text" name="runner-age" id="edit-runner-age" required>
+                    </div>
+                    <h3>Marathon Goal: </h3>
+                    <div class="form-group">
+                        <label for="edit-runner-hours">Hours: </label>
+                        <input class="form-control" type="text" name="hours" id="edit-runner-hours" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-runner-minutes">Minutes: </label>
+                        <input class="form-control" type="text" name="minutes" id="edit-runner-minutes" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-runner-seconds">Seconds: </label>
+                        <input class="form-control" type="text" name="seconds" id="edit-runner-seconds" required>
+                    </div>
+                    <input class="form-control mt-submit" type="submit" value="Save changes">
+            </form>
+        </div>
+    </div>
+</div>
+<br/>
+
+{% endblock %}

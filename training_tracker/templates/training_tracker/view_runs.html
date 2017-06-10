@@ -9,11 +9,11 @@
 
 {% block content %}
 <h1>View Runs</h1><br/>
-<select class="runner-select">
+<select class="runner-select form-control">
     <!-- select an individual runner or display run history for all runners -->
-    <option id="runner-select-all" value="all">All Runners</option>
+    <option value="all">All Runners</option>
     {% for run_history in run_histories %}
-        <option id="runner-select-{{ run_history.runner_id }}" value="{{ run_history.runner_id }}">{{ run_history.runner }}</option>
+        <option value="{{ run_history.runner_id }}">{{ run_history.runner }}</option>
     {% endfor %}
 </select>
 
@@ -49,20 +49,16 @@
                                 </div>
                             </div>
                         {% endfor %}
-                    </div>
+                    {% else %}
+                    <p>No runs to report.</p>
+                    {% endif %}
+                </div>
 
                 <!-- display chart -->
                 <div class="run-history-chart col-md-9 col-lg-9">
-                    {% run_history_chart_context 1%}
+                    {% run_history_chart_context run_history.runner_id %}
                 </div>
             </div>
-
-            {% else %}
-
-            <!-- if no runs for a runner -->
-            <p>No runs to report</p>
-
-            {% endif %}
         </div>
     {% endfor %}
 

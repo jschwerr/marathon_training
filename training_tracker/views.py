@@ -1,10 +1,13 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from training_tracker.custom_classes.charts import LineGraph
 
 from training_tracker.custom_classes.run_history import run_history
 from .models import Runner, Run, Mile
+from django.core import serializers
+from django.http import JsonResponse
+import json
 
 
 # Create your views here.
@@ -13,20 +16,23 @@ from .models import Runner, Run, Mile
 def index(request):
     # pass runners context to the template
     runners = Runner.objects.order_by('name')[:]
-    context = {'runners' : runners,}
+    context = {'runners': runners, }
 
     # render the template
     return render(request, 'training_tracker/index.html', context)
+
 
 # add run form view
 def add_run(request):
     # pass runners context to the template
     runners = Runner.objects.order_by('name')[:]
-    return render(request, 'training_tracker/add_run.html', {'runners' : runners})
+    return render(request, 'training_tracker/add_run.html', {'runners': runners})
+
 
 # add runner form view
 def add_runner(request):
     return render(request, 'training_tracker/add_runner.html', {})
+
 
 # add miles form view
 def add_miles(request, run_id):
@@ -35,11 +41,29 @@ def add_miles(request, run_id):
 
     # get a range of miles to loop through
     miles = range(int(run.tot_distance))
-    return render(request, 'training_tracker/add_miles.html', {'run':run, 'miles':miles})
+    return render(request, 'training_tracker/add_miles.html', {'run': run, 'miles': miles})
+
+import sys
+def edit_runner(request):
+    # get runners
+    r = Runner.objects.all()
+    runners = []
+
+    for runner in r:
+        runners.append({'id': runner.pk, 'name': runner.name})
+
+    return render(request, 'training_tracker/edit_runner.html', {'runners': runners})
+
+
+def edit_runner_get_data(request, runner_id):
+    runner = Runner.objects.get(pk=runner_id)
+    data = [{"name": runner.name, "age":runner.age, "runner_id": runner_id, "hours_goal" : runner.hours_goal,
+             "minutes_goal":runner.minutes_goal, "seconds_goal":runner.seconds_goal}]
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
 
 # post a run to the db
 def post_run(request):
-
     # foreign key runner field
     post_pk = request.POST['runner']
     # date field
@@ -58,7 +82,7 @@ def post_run(request):
     run.runner_id = post_pk
     run.date = post_date
     # add 1 to the current amount of runs that the runner has recorded
-    run.run_number = Run.objects.filter(pk = post_pk).count() + 1
+    run.run_number = Run.objects.filter(pk=post_pk).count() + 1
     run.tot_distance = post_distance
     run.hours = post_hours
     run.minutes = post_minutes
@@ -70,9 +94,9 @@ def post_run(request):
     # redirect to the add miles form with the run's primary key as a url parameter
     return HttpResponseRedirect(reverse('training_tracker:add_miles', args=(run.pk,)))
 
-# post a runner to the db
-def post_runner(request):
 
+# post a runner to the db
+def post_runner(request, runner_id):
     # name field
     post_name = request.POST['runner-name']
     # age field
@@ -96,6 +120,23 @@ def post_runner(request):
     runner.save()
 
     # redirect to the home page
+    return HttpResponseRedirect(reverse('training_tracker:index'))
+
+def post_edit_runner(request, runner_id):
+    # name field
+    post_name = request.POST['runner-name']
+    # age field
+    post_age = request.POST['runner-age']
+    # hours_goal field
+    post_hours = request.POST['hours']
+    # minues_goal field
+    post_minutes = request.POST['minutes']
+    # seconds_goal field
+    post_seconds = request.POST['seconds']
+
+    Runner.objects.filter(pk=runner_id).update(name=post_name,age=post_age,hours_goal=post_hours,
+                                               minutes_goal=post_minutes,seconds_goal=post_seconds)
+    
     return HttpResponseRedirect(reverse('training_tracker:index'))
 
 # post miles to the db
@@ -127,9 +168,9 @@ def post_miles(request, run_id):
     # redirect to the home page
     return HttpResponseRedirect(reverse('training_tracker:index'))
 
+
 # view run data for runners
 def view_runs(request):
-
     # get run histories for each runner
     runners = Runner.objects.all()
     run_histories = []
@@ -140,14 +181,21 @@ def view_runs(request):
 
     # add run_histories to context
     context = {
-        "run_histories" : run_histories
+        "run_histories": run_histories
     }
 
     return render(request, 'training_tracker/view_runs.html', context)
 
+
+# view goals for each runner
+def view_goals(request):
+    # get all runners
+    runners = Runner.objects.all()
+    return render(request, 'training_tracker/view_goals.html', {'runners': runners})
+
+
 # render a line graph
 def line_graph(request, runner_id):
-
     # get history for runner based on runner_id
     history = Runner.objects.get(pk=runner_id).get_run_history()
 

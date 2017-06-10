@@ -24,5 +24,4 @@ urlpatterns = [
     url(r'^$', views.root),
     # admin site
     url(r'^admin/', admin.site.urls),
-
 ]

@@ -1,0 +1,31 @@
+{% extends "training_tracker/__base.html" %}
+
+{% load tt_extra_tags staticfiles %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'training_tracker/js/view_goals.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<h1>View Goals</h1><br/>
+<select class="runner-select form-control">
+    <option value="all">All runners</option>
+    {% for runner in runners %}
+        <option value="{{ runner.id }}">{{ runner.name}}</option>
+    {% endfor %}
+</select>
+
+{% for runner in runners %}
+<div class="runner-goal" id="goal-{{ runner.id }}">
+    <h3>{{ runner.name }}'s Marathon Goal</h3>
+    <ul>
+        <li>Hours: {{ runner.hours_goal }}</li>
+        <li>Minutes: {{ runner.minutes_goal }}</li>
+        <li>Seconds: {{ runner.seconds_goal }}</li>
+    </ul>
+<br/>
+</div>
+{% endfor %}
+
+{% endblock %}
