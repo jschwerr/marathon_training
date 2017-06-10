@@ -55,10 +55,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'marathon_training.urls'
 
+LOGIN_REDIRECT_URL = '/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR + '/marathon_training/templates/',
+                 BASE_DIR + '/training_tracker/templates/training_tracker',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

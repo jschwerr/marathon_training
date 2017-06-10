@@ -3,7 +3,7 @@ from ..custom_classes.charts import LineGraph
 from ..models import Runner, Run, Mile
 from django.urls import reverse
 
-# variable to register extra tabs
+# variable to registration extra tabs
 register = template.Library()
 
 # custom tag to include line_chart.html

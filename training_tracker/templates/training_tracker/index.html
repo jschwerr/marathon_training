@@ -3,7 +3,9 @@
 {% block content %}
 
     <h1>Welcome to the training tracker app</h1>
-
+    {% if user.is_authenticated %}
+    {% else %}
+    {% endif %}
     <!-- list current runners if there are any -->
     {% if runners %}
         <h3>Current runners:</h3>
@@ -15,5 +17,4 @@
     {% else %}
         <h3>No active runners</h3>
     {% endif %}
-
 {% endblock %}

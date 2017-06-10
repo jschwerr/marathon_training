@@ -14,11 +14,22 @@ select.runner-select{
     display:block;
     margin-top:0;
 }
+
 /* active nav link */
 li .active {
     background-color:#DCDCDC;
 }
 
+#login-message{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    color: #777;
+}
+
+.navbar-right {
+    padding-right: 10px;
+}
 /* submit button */
 .mt-submit {
     background-color:#DCDCDC;

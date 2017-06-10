@@ -6,6 +6,8 @@ app_name = 'training_tracker'
 urlpatterns = [
     # /training_tracker/ -> show home page
     url(r'^$', views.index, name="index"),
+    # /training_tracker/regiter/ registration page
+    url(r'^register/$', views.register, name="register"),
     # /training_tracker/add_run -> show add run form
     url(r'^add_run/$', views.add_run, name="add_run"),
     # /training_tracker/add_runner -> show add runner form

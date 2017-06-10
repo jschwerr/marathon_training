@@ -3,10 +3,13 @@ from django.shortcuts import render
 from django.urls import reverse
 from training_tracker.custom_classes.charts import LineGraph
 
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django import forms
+from .forms import UserRegistrationForm
+
 from training_tracker.custom_classes.run_history import run_history
 from .models import Runner, Run, Mile
-from django.core import serializers
-from django.http import JsonResponse
 import json
 
 
@@ -18,9 +21,32 @@ def index(request):
     runners = Runner.objects.order_by('name')[:]
     context = {'runners': runners, }
 
+    for key in request:
+        print(key)
+        print(request[key])
     # render the template
     return render(request, 'training_tracker/index.html', context)
 
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            userObj = form.cleaned_data
+            username = userObj['username']
+            email =  userObj['email']
+            password =  userObj['password']
+
+            if not (User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists()):
+                User.objects.create_user(username, email, password)
+                user = authenticate(username = username, password = password)
+                login(request, user)
+                return HttpResponseRedirect('/')
+            else:
+                raise forms.ValidationError('Looks like a username with that email or password already exists')
+    else:
+        form = UserRegistrationForm()
+
+    return render(request, 'training_tracker/register.html', {'form' : form})
 
 # add run form view
 def add_run(request):

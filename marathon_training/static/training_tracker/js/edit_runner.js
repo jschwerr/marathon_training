@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     function get_runner_data(runner_id) {
         url = '/training_tracker/ajax/edit_runner/' + runner_id;
         return $.get(url);

@@ -1,86 +1,82 @@
 {% load tt_extra_tags %}
 
 <nav class="navbar navbar-fixed-top navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#tt-navbar-collapse-main" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="{% url 'training_tracker:index' %}">MTIU</a>
-    </div>
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#tt-navbar-collapse-main" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'training_tracker:index' %}">MTIU</a>
+        </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="tt-navbar-collapse-main">
-      <ul class="nav navbar-nav">
-        <!-- active links to pages
-             navactive gives the nav an active
-             class if it matches the url of the request-->
-        <!-- add drop down -->
-          <li class="dropdown" id="add-dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a class="{% navactive request 'training_tracker:add_run' %}" href="{% url 'training_tracker:add_run' %}">Add a run</a></li>
-              <li><a class="{% navactive request 'training_tracker:add_runner' %}" href="{% url 'training_tracker:add_runner' %}">Add a runner</a></li>
-              <li><a href="#">Add a plan</a></li>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="tt-navbar-collapse-main">
+            <ul class="nav navbar-nav">
+                <!-- active links to pages
+                         navactive gives the nav an active
+                         class if it matches the url of the request-->
+                <!-- add drop down -->
+                    <li class="dropdown" id="add-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="{% navactive request 'training_tracker:add_run' %}" href="{% url 'training_tracker:add_run' %}">Add a run</a></li>
+                            <li><a class="{% navactive request 'training_tracker:add_runner' %}" href="{% url 'training_tracker:add_runner' %}">Add a runner</a></li>
+                            <li><a href="#">Add a plan</a></li>
+                        </ul>
+                    </li>
+
+                <!-- view drop down -->
+                    <li class="dropdown" id="view-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="{% navactive request 'training_tracker:view_runs' %}" href="{% url 'training_tracker:view_runs' %}">View runs</a></li>
+                            <li><a href="#">View runners</a></li>
+                            <li><a href="#">View plans</a></li>
+                            <li><a class="{% navactive request 'training_tracker:view_goals' %}" href="{% url 'training_tracker:view_goals' %}">View goals</a></li>
+                        </ul>
+                    </li>
+
+                <!-- edit drop down -->
+                    <li class="dropdown" id="edit-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Edit <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Edit a run</a></li>
+                            <li><a class="{% navactive request 'training_tracker:edit_runner' %}" href="{% url 'training_tracker:edit_runner' %}">Edit a runner</a></li>
+                            <li><a href="#">Edit goals</a></li>
+                            <li><a href="#">Edit a plan</a></li>
+                        </ul>
+                    </li>
+
+                <!-- template for a dropdown list-->
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="#">Action</a></li>-->
+                        <!--<li><a href="#">Another action</a></li>-->
+                        <!--<li><a href="#">Something else here</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">Separated link</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">One more separated link</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+
             </ul>
-          </li>
 
-        <!-- view drop down -->
-          <li class="dropdown" id="view-dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a class="{% navactive request 'training_tracker:view_runs' %}" href="{% url 'training_tracker:view_runs' %}">View runs</a></li>
-              <li><a href="#">View runners</a></li>
-              <li><a href="#">View plans</a></li>
-              <li><a class="{% navactive request 'training_tracker:view_goals' %}" href="{% url 'training_tracker:view_goals' %}">View goals</a></li>
+            <!-- template for a navbar pulled right-->
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li id="login-message">Logged in as {{ user.username }}</li>
+                <li><a href="/logout">Logout</a></li>
+                {% else %}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/training_tracker/register">Register</a></li>
+                {% endif %}
             </ul>
-          </li>
-
-        <!-- edit drop down -->
-          <li class="dropdown" id="edit-dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Edit <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Edit a run</a></li>
-              <li><a class="{% navactive request 'training_tracker:edit_runner' %}" href="{% url 'training_tracker:edit_runner' %}">Edit a runner</a></li>
-              <li><a href="#">Edit goals</a></li>
-              <li><a href="#">Edit a plan</a></li>
-            </ul>
-          </li>
-
-        <!-- template for a dropdown list-->
-        <!--<li class="dropdown">-->
-          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-          <!--<ul class="dropdown-menu">-->
-            <!--<li><a href="#">Action</a></li>-->
-            <!--<li><a href="#">Another action</a></li>-->
-            <!--<li><a href="#">Something else here</a></li>-->
-            <!--<li role="separator" class="divider"></li>-->
-            <!--<li><a href="#">Separated link</a></li>-->
-            <!--<li role="separator" class="divider"></li>-->
-            <!--<li><a href="#">One more separated link</a></li>-->
-          <!--</ul>-->
-        <!--</li>-->
-
-      </ul>
-
-      <!-- template for a navbar pulled right-->
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
 </nav>

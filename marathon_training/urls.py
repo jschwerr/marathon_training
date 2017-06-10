@@ -16,12 +16,17 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 import marathon_training.views as views
+from django.contrib.auth  import views as auth_views
 
 urlpatterns = [
     # include training tracker app
     url(r'^training_tracker/', include('training_tracker.urls', namespace="training_tracker")),
     # root directory redirects to training tracker
     url(r'^$', views.root),
+    # login page
+    url(r'^login/$', auth_views.login),
+    # logout page
+    url(r'^logout/$', auth_views.logout),
     # admin site
     url(r'^admin/', admin.site.urls),
 ]
