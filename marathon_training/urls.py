@@ -26,7 +26,7 @@ urlpatterns = [
     # login page
     url(r'^login/$', auth_views.login),
     # logout page
-    url(r'^logout/$', auth_views.logout),
+    url(r'^logout/$', auth_views.logout, {'next_page': '../training_tracker/'}),
     # admin site
     url(r'^admin/', admin.site.urls),
 ]

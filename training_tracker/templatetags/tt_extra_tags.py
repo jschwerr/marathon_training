@@ -22,7 +22,7 @@ def run_history_chart_context(runner_id):
 
 # tag used to add active class to active nav link
 @register.simple_tag
-def navactive(request, urls):
+def navactive(request, urls, pk = None):
     if request.path in ( reverse(url) for url in urls.split() ):
         return "active"
     return ""

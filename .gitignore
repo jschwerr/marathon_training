@@ -3,3 +3,6 @@ venv
 staticfiles
 .env
 .idea/
+access_keys/
+database_dumps/
+*.dump

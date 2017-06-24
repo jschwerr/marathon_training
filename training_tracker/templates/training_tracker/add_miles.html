@@ -6,21 +6,14 @@
     <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
         <h1>Add miles</h1>
         <!-- form sends post data along with run id to post_miles in views.py-->
-        <form action="{% url 'training_tracker:post_miles' run.id %}" method="post">
+        <form method="post">
             {% csrf_token %}
             <!-- add inputs for each mile ran for this run_id -->
-            {% for mile in miles %}
-                <h3>Mile {{ forloop.counter }}: </h3>
+            {{ form_set.management_form }}
 
-                <div class="form-group">
-                    <label for="minutes{{ forloop.counter }}">Minutes: </label>
-                    <input class="form-control" type="text" name="minutes{{ forloop.counter }}" id="minutes{{ forloop.counter }}" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="seconds{{ forloop.counter }}">Seconds: </label>
-                    <input class="form-control" type="text" name="seconds{{ forloop.counter }}" id="seconds{{ forloop.counter }}" required>
-                </div>
+            {% for form in form_set %}
+                <h3>Mile {{ forloop.counter }}</h3>
+                {{ form }}
             {% endfor %}
             <input class="form-control mt-submit" type="submit" value="Add Miles">
         </form>

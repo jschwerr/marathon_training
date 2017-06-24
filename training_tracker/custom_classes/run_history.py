@@ -41,7 +41,6 @@ class run_history:
         self.runs = Run.objects.filter(runner_id=runner_id).order_by("date")
 
         # add runners name, id, and an empty list of runs to data
-        self.data["runner"] = self.runner.name
         self.data["runner_id"] = self.runner.pk
         self.data["runs"] = []
 
