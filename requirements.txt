@@ -3,7 +3,7 @@ chardet==3.0.3
 cycler==0.10.0
 decorator==4.0.11
 dj-database-url==0.4.1
-Django==1.11.1
+Django==1.11.28
 gunicorn==19.6.0
 idna==2.5
 ipython-genutils==0.2.0
